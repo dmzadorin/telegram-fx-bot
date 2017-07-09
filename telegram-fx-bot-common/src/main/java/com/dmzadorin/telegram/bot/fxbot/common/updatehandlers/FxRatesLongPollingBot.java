@@ -1,5 +1,6 @@
 package com.dmzadorin.telegram.bot.fxbot.common.updatehandlers;
 
+import com.dmzadorin.telegram.bot.fxbot.common.commands.GetRatesCommand;
 import com.dmzadorin.telegram.bot.fxbot.common.commands.HelloCommand;
 import com.dmzadorin.telegram.bot.fxbot.common.commands.StartCommand;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -64,6 +65,6 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
     }
 
     private Stream<BotCommand> getAvailableCommands() {
-        return Stream.of(new HelloCommand(), new StartCommand());
+        return Stream.of(new HelloCommand(), new StartCommand(), new GetRatesCommand());
     }
 }

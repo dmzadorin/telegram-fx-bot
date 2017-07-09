@@ -1,8 +1,20 @@
 group 'com.dmzadorin'
-version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile 'org.telegram:telegrambots:3.1.0'
-    compile 'org.telegram:telegrambots-meta:3.1.0'
-    compile "org.telegram:telegrambotsextensions:3.1.0"
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile project(':telegram-fx-bot-common')
 }
