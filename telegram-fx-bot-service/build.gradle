@@ -18,3 +18,8 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile project(':telegram-fx-bot-common')
 }
+
+bootRepackage {
+    mainClass = 'com.dmzadorin.telegram.bot.fxbot.service.TelegramFxBotApplication'
+    executable = true
+}

@@ -9,12 +9,28 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.generics.BotSession;
+import org.telegram.telegrambots.logging.BotLogger;
+import org.telegram.telegrambots.logging.BotsFileHandler;
+
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
 
 /**
  * Created by Dmitry Zadorin on 08.07.2017
  */
 @Configuration
 public class TelegramFxBotConfig {
+    static {
+        BotLogger.setLevel(Level.INFO);
+        BotLogger.registerLogger(new ConsoleHandler());
+        try {
+            BotLogger.registerLogger(new BotsFileHandler());
+        } catch (IOException e) {
+            BotLogger.severe("TelegramFxBotConfig", e);
+        }
+    }
+
     @Bean
     public TelegramBotsApi telegramBotsApi() {
         ApiContextInitializer.init();
