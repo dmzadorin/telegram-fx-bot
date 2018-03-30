@@ -33,7 +33,7 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
             commandUnknownMessage.setChatId(message.getChatId());
             commandUnknownMessage.setText("The command '" + message.getText() + "' is not known by this bot.");
             try {
-                absSender.sendMessage(commandUnknownMessage);
+                absSender.execute(commandUnknownMessage);
             } catch (TelegramApiException e) {
                 BotLogger.error(LOGTAG, e);
             }
@@ -51,7 +51,7 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
                 echoMessage.setText("Hey heres your message:\n" + message.getText());
 
                 try {
-                    sendMessage(echoMessage);
+                    execute(echoMessage);
                 } catch (TelegramApiException e) {
                     BotLogger.error(LOGTAG, e);
                 }

@@ -10,9 +10,9 @@ dependencies {
 
     compile project(':telegram-fx-bot-common')
 //  Telegram bots api
-    compile 'org.telegram:telegrambots:3.1.0'
-    compile 'org.telegram:telegrambots-meta:3.1.0'
-    compile "org.telegram:telegrambotsextensions:3.1.0"
+    compile group: 'org.telegram', name: 'telegrambots', version: '3.6'
+    compile group: 'org.telegram', name: 'telegrambots-meta', version: '3.6'
+    compile group: 'org.telegram', name: 'telegrambotsextensions', version: '3.6'
 //  Tests
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
