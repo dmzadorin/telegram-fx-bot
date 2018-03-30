@@ -1,0 +1,4 @@
+quote-service:
+    host: localhost
+    port: 8081
+telegram.fxBotToken: ${botToken}
