@@ -1,17 +1,13 @@
-package com.dmzadorin.fxrates.service;
+package com.dmzadorin.fxquote.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import yahoofinance.YahooFinance;
 import yahoofinance.quotes.fx.FxQuote;
-import yahoofinance.quotes.fx.FxSymbols;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * Created by Dmitry Zadorin on 30.03.2018

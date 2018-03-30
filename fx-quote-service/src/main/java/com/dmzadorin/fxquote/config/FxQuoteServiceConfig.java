@@ -1,7 +1,7 @@
-package com.dmzadorin.fxrates.config;
+package com.dmzadorin.fxquote.config;
 
-import com.dmzadorin.fxrates.service.FxQuoteService;
-import com.dmzadorin.fxrates.service.YahooFinanceQuoteService;
+import com.dmzadorin.fxquote.service.FxQuoteService;
+import com.dmzadorin.fxquote.service.YahooFinanceQuoteService;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 

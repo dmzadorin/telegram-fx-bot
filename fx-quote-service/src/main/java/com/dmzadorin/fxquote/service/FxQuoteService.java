@@ -1,4 +1,4 @@
-package com.dmzadorin.fxrates.service;
+package com.dmzadorin.fxquote.service;
 
 import java.math.BigDecimal;
 

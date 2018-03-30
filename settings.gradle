@@ -1,5 +1,5 @@
 rootProject.name = 'telegram-fx-bot'
 include 'telegram-fx-bot-common'
 include 'telegram-fx-bot-service'
-include 'fx-rates-service'
+include 'fx-quote-service'
 

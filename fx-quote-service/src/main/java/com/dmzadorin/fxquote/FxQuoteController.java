@@ -1,6 +1,6 @@
-package com.dmzadorin.fxrates;
+package com.dmzadorin.fxquote;
 
-import com.dmzadorin.fxrates.service.FxQuoteService;
+import com.dmzadorin.fxquote.service.FxQuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
