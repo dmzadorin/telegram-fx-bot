@@ -7,10 +7,11 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'com.yahoofinance-api:YahooFinanceAPI:3.8.0'
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    compile project(':telegram-fx-bot-common')
 }
 
 bootJar {
-    mainClassName = 'com.dmzadorin.telegram.bot.fxbot.service.TelegramFxBotApplication'
+    mainClassName = 'com.dmzadorin.telegram.fxbot.rates.RatesServiceApp'
 }
+

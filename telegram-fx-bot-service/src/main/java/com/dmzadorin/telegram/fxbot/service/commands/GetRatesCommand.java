@@ -1,5 +1,6 @@
-package com.dmzadorin.telegram.bot.fxbot.common.commands;
+package com.dmzadorin.telegram.fxbot.service.commands;
 
+import com.dmzadorin.telegram.fxbot.service.rates.FxQuoteClient;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.User;
@@ -7,18 +8,14 @@ import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
-import yahoofinance.YahooFinance;
-import yahoofinance.quotes.fx.FxQuote;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Optional;
 
 /**
  * Created by Dmitry Zadorin on 08.07.2017
  */
 public class GetRatesCommand extends BotCommand {
-    public static final String LOGTAG = "GETRATESCOMMAND";
+    private static final String LOGTAG = "GETRATESCOMMAND";
+
+    private FxQuoteClient fxQuoteClient;
 
     public GetRatesCommand() {
         super("getRates", "Using this command you can get fx rates");
@@ -34,7 +31,7 @@ public class GetRatesCommand extends BotCommand {
             StringBuilder sb = new StringBuilder("Here are your fx rates:");
             for (String arg : arguments) {
                 sb.append(System.lineSeparator());
-                sb.append(arg).append("=").append(getQuote(arg));
+                sb.append(arg).append("=").append(fxQuoteClient.getRate(arg));
             }
             answer.setText(sb.toString());
         }
@@ -45,14 +42,7 @@ public class GetRatesCommand extends BotCommand {
         }
     }
 
-    private String getQuote(String fxPair){
-        Optional<FxQuote> quote = Optional.empty();
-        try {
-            String request = fxPair + "=X";
-            quote = Optional.ofNullable(YahooFinance.getFx(request));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return quote.map(FxQuote::getPrice).map(BigDecimal::toString).orElse("failed to get rate for " + fxPair);
+    public void setFxQuoteClient(FxQuoteClient fxQuoteClient) {
+        this.fxQuoteClient = fxQuoteClient;
     }
 }

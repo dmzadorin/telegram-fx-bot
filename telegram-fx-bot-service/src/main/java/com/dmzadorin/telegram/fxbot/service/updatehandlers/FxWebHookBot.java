@@ -1,4 +1,4 @@
-package com.dmzadorin.telegram.bot.fxbot.common.updatehandlers;
+package com.dmzadorin.telegram.fxbot.service.updatehandlers;
 
 import org.telegram.telegrambots.api.methods.BotApiMethod;
 import org.telegram.telegrambots.api.objects.Update;

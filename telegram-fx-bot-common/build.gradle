@@ -4,5 +4,4 @@ dependencies {
     compile 'org.telegram:telegrambots:3.1.0'
     compile 'org.telegram:telegrambots-meta:3.1.0'
     compile "org.telegram:telegrambotsextensions:3.1.0"
-    compile 'com.yahoofinance-api:YahooFinanceAPI:3.8.0'
 }

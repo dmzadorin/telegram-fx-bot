@@ -1,4 +1,4 @@
-package com.dmzadorin.telegram.bot.fxbot.common.commands;
+package com.dmzadorin.telegram.fxbot.service.commands;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;

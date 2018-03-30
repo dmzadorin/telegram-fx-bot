@@ -1,8 +1,8 @@
-package com.dmzadorin.telegram.bot.fxbot.common.updatehandlers;
+package com.dmzadorin.telegram.fxbot.service.updatehandlers;
 
-import com.dmzadorin.telegram.bot.fxbot.common.commands.GetRatesCommand;
-import com.dmzadorin.telegram.bot.fxbot.common.commands.HelloCommand;
-import com.dmzadorin.telegram.bot.fxbot.common.commands.StartCommand;
+import com.dmzadorin.telegram.fxbot.service.commands.GetRatesCommand;
+import com.dmzadorin.telegram.fxbot.service.commands.HelloCommand;
+import com.dmzadorin.telegram.fxbot.service.commands.StartCommand;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -11,6 +11,8 @@ import org.telegram.telegrambots.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -19,10 +21,12 @@ import java.util.stream.Stream;
 public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
     private static final String LOGTAG = "FXRATESHANDLER";
     private final String botToken;
+    private final Collection<BotCommand> availableCommands;
 
-    public FxRatesLongPollingBot(String botToken, String botUserName) {
+    public FxRatesLongPollingBot(String botToken, String botUserName, Collection<BotCommand> availableCommands) {
         super(botUserName);
         this.botToken = botToken;
+        this.availableCommands = availableCommands;
         init();
     }
 
@@ -51,7 +55,7 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
     }
 
     private void init() {
-        getAvailableCommands().forEach(super::register);
+        availableCommands.forEach(super::register);
         registerDefaultAction((absSender, message) -> {
             SendMessage commandUnknownMessage = new SendMessage();
             commandUnknownMessage.setChatId(message.getChatId());
@@ -62,9 +66,5 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
                 BotLogger.error(LOGTAG, e);
             }
         });
-    }
-
-    private Stream<BotCommand> getAvailableCommands() {
-        return Stream.of(new HelloCommand(), new StartCommand(), new GetRatesCommand());
     }
 }

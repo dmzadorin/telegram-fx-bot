@@ -1,4 +1,4 @@
-package com.dmzadorin.telegram.bot.fxbot.common.session;
+package com.dmzadorin.telegram.fxbot.service.session;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,8 +32,6 @@ import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
-
-import static org.telegram.telegrambots.Constants.SOCKET_TIMEOUT;
 
 /**
  * Created by Dmitry Zadorin on 08.07.2017

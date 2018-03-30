@@ -1,18 +1,24 @@
-package com.dmzadorin.telegram.bot.fxbot.service.config;
+package com.dmzadorin.telegram.fxbot.service.config;
 
-import com.dmzadorin.telegram.bot.fxbot.common.updatehandlers.FxRatesLongPollingBot;
+import com.dmzadorin.telegram.fxbot.service.commands.GetRatesCommand;
+import com.dmzadorin.telegram.fxbot.service.commands.HelloCommand;
+import com.dmzadorin.telegram.fxbot.service.commands.StartCommand;
+import com.dmzadorin.telegram.fxbot.service.updatehandlers.FxRatesLongPollingBot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.generics.BotSession;
 import org.telegram.telegrambots.logging.BotLogger;
 import org.telegram.telegrambots.logging.BotsFileHandler;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 
@@ -38,8 +44,34 @@ public class TelegramFxBotConfig {
     }
 
     @Bean
-    public FxRatesLongPollingBot fxRatesBot(@Value("#{systemProperties.fxBotToken}") String token) {
-        return new FxRatesLongPollingBot(token, "fx_rates_poller_bot");
+    public BotCommand helloCommand() {
+        return new HelloCommand();
+    }
+
+    @Bean
+    public BotCommand startCommand() {
+        return new StartCommand();
+    }
+
+    @Bean
+    public BotCommand ratesCommand() {
+        GetRatesCommand ratesCommand = new GetRatesCommand();
+        ratesCommand.setFxQuoteClient(message -> {
+            throw new UnsupportedOperationException("TODO Implement");
+        });
+        return ratesCommand;
+    }
+
+    @Bean
+    public Collection<BotCommand> availableCommands() {
+        return Arrays.asList(helloCommand(), startCommand(), ratesCommand());
+    }
+
+    @Bean
+    public FxRatesLongPollingBot fxRatesBot(
+            @Value("#{systemProperties.fxBotToken}") String token,
+            @Autowired Collection<BotCommand> availableCommands) {
+        return new FxRatesLongPollingBot(token, "fx_rates_poller_bot", availableCommands);
     }
 
     @Bean(destroyMethod = "stop")
