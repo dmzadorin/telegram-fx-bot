@@ -75,7 +75,8 @@ public class TelegramFxBotConfig {
     }
 
     @Bean(destroyMethod = "stop")
-    public BotSession fxBotSession(@Autowired TelegramBotsApi telegramBotsApi, @Autowired FxRatesLongPollingBot fxRatesBox) throws TelegramApiRequestException {
+    public BotSession fxBotSession(@Autowired TelegramBotsApi telegramBotsApi,
+                                   @Autowired FxRatesLongPollingBot fxRatesBox) throws TelegramApiRequestException {
         return telegramBotsApi.registerBot(fxRatesBox);
     }
 }

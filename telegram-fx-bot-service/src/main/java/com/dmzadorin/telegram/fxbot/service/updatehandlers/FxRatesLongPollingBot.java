@@ -1,8 +1,5 @@
 package com.dmzadorin.telegram.fxbot.service.updatehandlers;
 
-import com.dmzadorin.telegram.fxbot.service.commands.GetRatesCommand;
-import com.dmzadorin.telegram.fxbot.service.commands.HelloCommand;
-import com.dmzadorin.telegram.fxbot.service.commands.StartCommand;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -11,9 +8,8 @@ import org.telegram.telegrambots.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by Dmitry Zadorin on 08.07.2017
@@ -27,7 +23,21 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
         super(botUserName);
         this.botToken = botToken;
         this.availableCommands = availableCommands;
-        init();
+    }
+
+    @PostConstruct
+    public void init() {
+        availableCommands.forEach(super::register);
+        registerDefaultAction((absSender, message) -> {
+            SendMessage commandUnknownMessage = new SendMessage();
+            commandUnknownMessage.setChatId(message.getChatId());
+            commandUnknownMessage.setText("The command '" + message.getText() + "' is not known by this bot.");
+            try {
+                absSender.sendMessage(commandUnknownMessage);
+            } catch (TelegramApiException e) {
+                BotLogger.error(LOGTAG, e);
+            }
+        });
     }
 
     @Override
@@ -52,19 +62,5 @@ public class FxRatesLongPollingBot extends TelegramLongPollingCommandBot {
     @Override
     public String getBotToken() {
         return botToken;
-    }
-
-    private void init() {
-        availableCommands.forEach(super::register);
-        registerDefaultAction((absSender, message) -> {
-            SendMessage commandUnknownMessage = new SendMessage();
-            commandUnknownMessage.setChatId(message.getChatId());
-            commandUnknownMessage.setText("The command '" + message.getText() + "' is not known by this bot.");
-            try {
-                absSender.sendMessage(commandUnknownMessage);
-            } catch (TelegramApiException e) {
-                BotLogger.error(LOGTAG, e);
-            }
-        });
     }
 }

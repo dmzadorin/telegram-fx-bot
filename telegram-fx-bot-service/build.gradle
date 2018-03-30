@@ -7,8 +7,16 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+
     compile project(':telegram-fx-bot-common')
+//  Telegram bots api
+    compile 'org.telegram:telegrambots:3.1.0'
+    compile 'org.telegram:telegrambots-meta:3.1.0'
+    compile "org.telegram:telegrambotsextensions:3.1.0"
+//  Tests
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+
 }
 
 bootJar {

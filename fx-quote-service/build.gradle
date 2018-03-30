@@ -7,8 +7,9 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile 'com.yahoofinance-api:YahooFinanceAPI:3.8.0'
+    compile 'com.yahoofinance-api:YahooFinanceAPI:3.12.3'
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
 }
 
 bootJar {

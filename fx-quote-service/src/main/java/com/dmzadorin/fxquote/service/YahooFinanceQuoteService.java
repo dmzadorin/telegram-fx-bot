@@ -18,7 +18,7 @@ public class YahooFinanceQuoteService implements FxQuoteService {
     @Override
     public BigDecimal getQuote(String symbol) {
         Optional<FxQuote> quote = getYahooFinanceQuote(symbol);
-        return quote.map(FxQuote::getPrice).orElseThrow(RuntimeException::new);
+        return quote.map(FxQuote::getPrice).orElse(BigDecimal.ZERO);
     }
 
     private Optional<FxQuote> getYahooFinanceQuote(String fxPair) {
